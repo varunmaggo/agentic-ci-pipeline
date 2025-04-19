@@ -8,7 +8,7 @@ This repository contains a complete end-to-end CI/CD pipeline powered by:
 - Compliance Gates and Validation
 - GitHub Actions Workflow with multiple stages
 
-## 🔁 Pipeline Overview
+## Pipeline Overview
 
 | Stage              | Description                                                             |
 |-------------------|-------------------------------------------------------------------------|
@@ -18,13 +18,13 @@ This repository contains a complete end-to-end CI/CD pipeline powered by:
 | Compliance         | Simulated SOC2 / GDPR / ISO checks                                     |
 | Deploy             | Mock deploy stage                                                       |
 
-## 🛠️ Usage
+## Usage
 
 1. Push this repo to GitHub
 2. Watch your Actions tab for build, scan, and deploy stages
 3. Modify files like `model.json` or `Dockerfile` to trigger LangGraph analysis
 
-## 📦 Future Enhancements
+## Future Enhancements
 
 - Real Kubernetes or VM deploy integration
 - Slack or PR comment notifications
