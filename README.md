@@ -3,10 +3,10 @@
 
 This repository contains a complete end-to-end CI/CD pipeline powered by:
 
-- ✅ LangGraph Agentic Planner (reads + fixes Dockerfiles)
-- 🔐 Static & Dynamic Security Scanning
-- 🧪 Compliance Gates and Validation
-- 🚀 GitHub Actions Workflow with multiple stages
+- LangGraph Agentic Planner (reads + fixes Dockerfiles)
+- Static & Dynamic Security Scanning
+- Compliance Gates and Validation
+- GitHub Actions Workflow with multiple stages
 
 ## 🔁 Pipeline Overview
 
