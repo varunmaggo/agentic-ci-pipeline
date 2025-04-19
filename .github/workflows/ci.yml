@@ -1,0 +1,82 @@
+
+name: Agentic CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install langgraph
+
+    - name: Run Agentic Planner
+      run: |
+        python agent.py
+
+  security:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Static Code Analysis
+      uses: github/codeql-action/init@v2
+      with:
+        languages: python
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+
+    - name: Dependency Scan
+      run: |
+        pip install safety
+        safety check
+
+    - name: Linting
+      run: |
+        pip install flake8
+        flake8 agent.py
+
+  dynamic-scan:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Run OWASP ZAP Baseline Scan
+      uses: zaproxy/action-baseline@v0.9.0
+      with:
+        target: 'http://localhost:8000'
+
+  compliance:
+    runs-on: ubuntu-latest
+    needs: [security, dynamic-scan]
+    steps:
+    - name: Run Compliance Check
+      run: |
+        echo "Running mock compliance check..."
+        echo "✔ SOC2"
+        echo "✔ GDPR"
+        echo "✔ ISO27001"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: compliance
+    steps:
+    - name: Deploy Application
+      run: |
+        echo "Deploying application (mock)..."
+        echo "✅ Deployed successfully"
